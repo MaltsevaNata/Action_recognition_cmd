@@ -12,7 +12,7 @@
     Required CUDA (Nvidia GPU) version:\
     NVIDIA graphics card with at least 1.6 GB available (the nvidia-smi command checks the available GPU memory in Ubuntu).\
     At least 2.5 GB of free RAM memory for BODY_25 model or 2 GB for COCO model (assuming cuDNN installed).\
-    Highly recommended: cuDNN.
+    Highly recommended: cuDNN. \
    **2. Install dependencies** from requirements.txt
 ## Define input data
   Input data to train models and predict is folders with videos. Every video contains basically 1 action done by 1 person. Every folder contains videos with one action and is named by action name. Example: If you want to train the model to recognize 3 classes, you need to create 3 folders. 
