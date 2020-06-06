@@ -12,7 +12,7 @@
     Required:\
     CUDA (Nvidia GPU) version:\
     - NVIDIA graphics card with at least 1.6 GB available (the nvidia-smi command checks the available GPU memory in Ubuntu).\
-    - At least 2.5 GB of free RAM memory for BODY_25 model or 2 GB for COCO model (assuming cuDNN installed).\
+    - At least 2.5 GB of free RAM memory \
     - Highly recommended: cuDNN. \
    **2. Install dependencies** from requirements.txt
 ## Define input data
