@@ -25,59 +25,13 @@
     ![Video3](https://media.giphy.com/media/RLE8FhEeXSYN5zAp71/giphy.gif)
 ## Train model example
 
-> ~/PycharmProjects/action_recognition$ python3 action_recognition.py -t \
-To train a model on your videos you should place videos with common action to one folder and name this folder by action \
-Enter path to videos of the 1 action or enter 'n' \
-/home/Move_scaner/ \
-Added path to action 1 :/home/Move_scaner/ \
->Enter path to videos of the 2 action or enter 'n' \
-/home/Tune_angle/ \
-Added path to action 2 :/home/Tune_angle/ \
-
->Enter path to videos of the 3 action or enter 'n' \
-/home/Tune_height/ \
-Added path to action 3 :/home/Tune_height/ \
->Enter path to videos of the 4 action or enter 'n' \
-n \
->Got paths to actions: ['/home/Move_scaner/', '/home/Tune_angle/', '/home/Tune_height/'] \
-
->Enter filename to save your trained model (without extension) \
-models/full_train \
-
->Enter model name to train. Choices: ['svm', 'kNN', 'decision_tree'] \
-svm \
-
->Do you want to use PCA before training? y/n \
-n \
->Creating objects... \
-Starting OpenPose Python Wrapper... \
-Auto-detecting all available GPUs... Detected 1 GPU(s), using 1 of them starting at GPU 0. \
-Starting training...  
-Training model... \
-FINISHED training. Check on train data: \
-Comparing results to expected. 
-Accuracy: 1.0 \
-Recall: 1.0 \
-Precision: 1.0 \
-[[11  0  0]
- [ 0  6  0]
- [ 0  0 22]] \
->Model is trained and saved to models/full_train.sav. Now you can make predictions on new data 
+![Train screenshot](images/train.png)
 
 ## Output data
 After training the model you will find 2(3) files of trained model in your folder: model of the method itself (from example: models/full_train.sav), file with actions names (from example: models/full_train_classes.txt) and optionally PCA model .txt file. These files are neccesary to make predictions on new data.
 
 ## Prediction example
-> ~/PycharmProjects/action_recognition$ python3 action_recognition.py -p \
-Enter name of the trained model. Choices: ['svm', 'kNN', 'decision_tree'] \
-svm \
->Enter filename of the trained model (without extension) \
-models/full_train \
-Starting OpenPose Python Wrapper... \
-Auto-detecting all available GPUs... Detected 1 GPU(s), using 1 of them starting at GPU 0. \
->Enter path to the video you want to predict \
-/home/natalia/Рабочий стол/all_train_data/Tune_height2.mp4 \
-Predicting... \
->Predicted: [action: confidence]: {'Move_scaner': 0.0, 'Tune_height': 99.09909909909909, 'Tune_angle': 0.9009009009009009} 
+
+![Predict screenshot](images/predict.png)
 
 Output of the prediction is name of the action and model's confidence % in it's precense in the video.
