@@ -80,4 +80,4 @@ Auto-detecting all available GPUs... Detected 1 GPU(s), using 1 of them starting
 Predicting... \
 >Predicted: [action: confidence]: {'Move_scaner': 0.0, 'Tune_height': 99.09909909909909, 'Tune_angle': 0.9009009009009009} 
 
-Output of the prediction is name of the action and model's confidence in it's precense in the video.
+Output of the prediction is name of the action and model's confidence % in it's precense in the video.
