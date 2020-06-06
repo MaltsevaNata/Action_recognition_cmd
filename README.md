@@ -15,7 +15,7 @@
     Highly recommended: cuDNN. \
    **2. Install dependencies** from requirements.txt
 ## Define input data
-  Input data to train models and predict is folders with videos. Every video contains basically 1 action done by 1 person. Every folder contains videos with one action and is named by action name. Example: If you want to train the model to recognize 3 classes, you need to create 3 folders. 
+  Input data to train models and predict is folders with videos *.mp4. Every video contains basically 1 action done by 1 person. Every folder contains videos with one action and is named by action name. Example: If you want to train the model to recognize 3 classes, you need to create 3 folders. 
   1. project_path/Move_scaner/ stores videos like this:  \
     ![Video1](https://media.giphy.com/media/cgeVZMM88qWlj6Nzzf/giphy.gif)
   2. project_path/Tune_height/ with videos:  \
