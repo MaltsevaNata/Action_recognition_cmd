@@ -42,7 +42,7 @@ n \
 >Got paths to actions: ['/home/Move_scaner/', '/home/Tune_angle/', '/home/Tune_height/'] \
 
 >Enter filename to save your trained model (without extension) \
-models/check_training \
+models/full_train \
 
 >Enter model name to train. Choices: ['svm', 'kNN', 'decision_tree'] \
 svm \
@@ -62,6 +62,22 @@ Precision: 1.0 \
 [[11  0  0]
  [ 0  6  0]
  [ 0  0 22]] \
->Model is trained and saved to models/check_training.sav. Now you can make predictions on new data 
+>Model is trained and saved to models/full_train.sav. Now you can make predictions on new data 
 
+## Output data
+After training the model you will find 2(3) files of trained model in your folder: model of the method itself (from example: models/full_train.sav), file with actions names (from example: models/full_train_classes.txt) and optionally PCA model .txt file. These files are neccesary to make predictions on new data.
 
+## Prediction example
+> ~/PycharmProjects/action_recognition$ python3 action_recognition.py -p \
+Enter name of the trained model. Choices: ['svm', 'kNN', 'decision_tree'] \
+svm \
+>Enter filename of the trained model (without extension) \
+models/full_train \
+Starting OpenPose Python Wrapper... \
+Auto-detecting all available GPUs... Detected 1 GPU(s), using 1 of them starting at GPU 0. \
+>Enter path to the video you want to predict \
+/home/natalia/Рабочий стол/all_train_data/Tune_height2.mp4 \
+Predicting... \
+>Predicted: [action: confidence]: {'Move_scaner': 0.0, 'Tune_height': 99.09909909909909, 'Tune_angle': 0.9009009009009009} 
+
+Output of the prediction is name of the action and model's confidence in it's precense in the video.
