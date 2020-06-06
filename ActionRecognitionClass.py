@@ -1,9 +1,9 @@
-from recognize_pose import create_pose_json
-from get_images import get_images
-from start_openpose import start_openpose
+from utils.recognize_pose import create_pose_json
+from utils.get_images import get_images
+from utils.start_openpose import start_openpose
 import json
 import sklearn.model_selection as model_selection
-import SVM
+import utils.SVM as SVM
 import numpy as np
 import os
 import cv2
