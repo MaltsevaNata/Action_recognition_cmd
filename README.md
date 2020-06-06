@@ -8,7 +8,7 @@
   Optional parameter PCA serves for to decrease number of training parameters in the model.\
    ***For now only SVM method is available. Update soon.***
 ## Installation
-   **1. Install OpenPose**  https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md\
+   **1. Install OpenPose**  https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md \
     Required:\
     CUDA (Nvidia GPU) version:\
     - NVIDIA graphics card with at least 1.6 GB available (the nvidia-smi command checks the available GPU memory in Ubuntu).\
