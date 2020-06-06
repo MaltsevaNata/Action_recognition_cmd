@@ -57,7 +57,8 @@ if args.train:
         print("Your PCA matrix will be saved to file {}".format(pca_filename))
         PCA = True
     for num in range(len(paths_to_actions)):
-        classes_names.append(os.path.splitext("path_to_file")[0])
+        classes_names.append(os.path.split(paths_to_actions[num])[0].split('/')[-1])
+    #print(classes_names)
     with open(filename[:-4]+'_classes.txt', 'wb') as file:
         pickle.dump(classes_names, file)
     print("Creating objects...")
@@ -89,4 +90,7 @@ elif args.predict:
     act_rec.load_trained(modelname, actions_names=classes_names)
     print("Enter path to the video you want to predict")
     predict_file = input()
+    while not os.path.exists(predict_file):
+        print(colored("No such directory. Try again", 'red'))
+    print("Predicting...")
     act_rec.predict(predict_file)

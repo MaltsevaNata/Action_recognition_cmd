@@ -66,4 +66,10 @@ class SVM:
             #ax = sns.heatmap(cf_matrix, annot=True, cmap="Blues", cbar_kws={'label': 'Scale'}, fmt='g')
             #ax.set(ylabel="True Label", xlabel="Predicted Label")
             #plt.show()
-        return y_predict
+        counts = np.bincount(y_predict)
+        predicted = {}
+        classes_num = len(np.unique(y_predict))
+        for cl_num in range(classes_num + 1 ):
+            confidence = 100*np.max(counts[cl_num])/np.sum(counts)
+            predicted[cl_num] = confidence
+        return predicted

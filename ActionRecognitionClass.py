@@ -87,7 +87,12 @@ class ActionRecognition:
 
     def predict(self, video):
         X = self.get_data_from_video(video)
-        print(self.model.predict(X))
+        predicted = self.model.predict(X)
+        predicted_actions = {}
+        for key in predicted.keys():
+            action = self.action_names[key]
+            predicted_actions[action] = predicted[key]
+        print("Predicted: [action: confidence]: {}".format(predicted_actions))
 
     def predict_by_img(self, image):
         return self.model.predict(image)
