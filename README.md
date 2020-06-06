@@ -30,22 +30,26 @@ To train a model on your videos you should place videos with common action to on
 Enter path to videos of the 1 action or enter 'n' \
 /home/Move_scaner/ \
 Added path to action 1 :/home/Move_scaner/ \
-Enter path to videos of the 2 action or enter 'n' \
+>Enter path to videos of the 2 action or enter 'n' \
 /home/Tune_angle/ \
 Added path to action 2 :/home/Tune_angle/ \
-Enter path to videos of the 3 action or enter 'n' \
+
+>Enter path to videos of the 3 action or enter 'n' \
 /home/Tune_height/ \
 Added path to action 3 :/home/Tune_height/ \
-Enter path to videos of the 4 action or enter 'n' \
+>Enter path to videos of the 4 action or enter 'n' \
 n \
-Got paths to actions: ['/home/Move_scaner/', '/home/Tune_angle/', '/home/Tune_height/'] \
-Enter filename to save your trained model (without extension) \
+>Got paths to actions: ['/home/Move_scaner/', '/home/Tune_angle/', '/home/Tune_height/'] \
+
+>Enter filename to save your trained model (without extension) \
 models/check_training \
-Enter model name to train. Choices: ['svm', 'kNN', 'decision_tree'] \
+
+>Enter model name to train. Choices: ['svm', 'kNN', 'decision_tree'] \
 svm \
-Do you want to use PCA before training? y/n \
+
+>Do you want to use PCA before training? y/n \
 n \
-Creating objects... \
+>Creating objects... \
 Starting OpenPose Python Wrapper... \
 Auto-detecting all available GPUs... Detected 1 GPU(s), using 1 of them starting at GPU 0. \
 Starting training...  
@@ -58,6 +62,6 @@ Precision: 1.0 \
 [[11  0  0]
  [ 0  6  0]
  [ 0  0 22]] \
-Model is trained and saved to models/check_training.sav. Now you can make predictions on new data 
+>Model is trained and saved to models/check_training.sav. Now you can make predictions on new data 
 
 
