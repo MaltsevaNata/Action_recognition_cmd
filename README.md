@@ -5,8 +5,8 @@
    -h, --help     show this help message and exit\
   --train, -t    start training model on new data, PCA available\
   --predict, -p  predict action on video using trained model, PCA available\
-  For now only SVM method is available. Update soon.
-  Optional parameter PCA serves for to decrease number of training parameters in the model.
+  Optional parameter PCA serves for to decrease number of training parameters in the model.\
+   ***For now only SVM method is available. Update soon.
 ## Installation
    **1. Install OpenPose** @CMU-Perceptual-Computing-Lab/openpose https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md\
     Required CUDA (Nvidia GPU) version:\
