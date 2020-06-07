@@ -4,6 +4,7 @@ from utils.start_openpose import start_openpose
 import json
 import sklearn.model_selection as model_selection
 import utils.SVM as SVM
+import utils.kNN as kNN
 import numpy as np
 import os
 import cv2
@@ -61,6 +62,10 @@ class ActionRecognition:
             svm = SVM.SVM(PCA=self.PCA)
             self.model = svm
             svm.load_trained_model(model_file=self.model_file, PCA=self.PCA, PCA_file=self.PCA_file)
+        elif model_name=='kNN':
+            knn = kNN.kNN(PCA=self.PCA)
+            self.model = knn
+            knn.load_trained_model(model_file=self.model_file, PCA=self.PCA, PCA_file=self.PCA_file)
 
     def train(self, paths_to_classes, action_names, model_name):
         self.action_names = action_names
@@ -81,9 +86,15 @@ class ActionRecognition:
         if model_name == 'svm':
             svm = SVM.SVM(PCA=self.PCA)
             self.model = svm
-            svm.train(X_train, y_train, self.model_file)
+            svm.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
             self.trained = True
             svm.predict(X_test, y_test)
+        elif model_name == 'kNN':
+            knn = kNN.kNN(PCA=self.PCA)
+            self.model = knn
+            knn.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
+            self.trained = True
+            knn.predict(X_test, y_test)
 
     def predict(self, video):
         X = self.get_data_from_video(video)
