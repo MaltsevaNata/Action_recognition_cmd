@@ -6,7 +6,7 @@
   --train, -t    start training model on new data, PCA available\
   --predict, -p  predict action on video using trained model, PCA available\
   Optional parameter PCA serves for to decrease number of training parameters in the model.\
-   ***For now only SVM method is available. Update soon.***
+   ***For now only SVM and kNN methods are available. Update soon.***
 ## Installation
    **1. Install OpenPose**  https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md \
     Required:\
