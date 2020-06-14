@@ -70,3 +70,9 @@ class Model:
             confidence = 100*np.max(counts[cl_num])/np.sum(counts)
             predicted[cl_num] = confidence
         return predicted
+
+    def predict_class(self, X, Y=None):
+        if self.PCA:
+            X = np.dot(X, self.PCA_matrix)
+        y_predict = self.model.predict(X)
+        return y_predict

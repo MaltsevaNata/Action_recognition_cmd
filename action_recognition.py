@@ -11,11 +11,12 @@ help = 'To train a model on your videos you should place videos with common acti
 parser = argparse.ArgumentParser(description=help)
 parser.add_argument("--train", "-t", help="start training model on new data", action="store_true")
 parser.add_argument("--predict", "-p", help="predict action on video using trained model", action="store_true")
+parser.add_argument("--real_time_predict", "-r", help="predict action in RT using trained model", action="store_true")
 
 args = parser.parse_args()
 
 paths_to_actions = []
-model_names = ['svm', 'kNN', 'decision_tree']
+model_names = ['svm', 'kNN', 'decision_tree', 'gmm']
 classes_names = []
 
 def get_train_data():
@@ -94,3 +95,31 @@ elif args.predict:
         print(colored("No such directory. Try again", 'red'))
     print("Predicting...")
     act_rec.predict(predict_file)
+
+elif args.real_time_predict:
+    print("Enter name of the trained model. Choices: {}".format(model_names))
+    modelname = input()
+    while modelname not in model_names:
+        print(colored("No such model. Try again. Choices: {}".format(model_names), 'red'))
+        modelname = input()
+    print("Enter filename of the trained model (without extension)")
+    filename = input() + '.sav'
+    while not os.path.exists(filename):
+        print(colored("No such directory. Try again or enter 'n'", 'red'))
+        filename = input() + '.sav'
+    pca_filename = filename[:-4] + '_PCA.txt'
+    if os.path.exists(pca_filename):
+        PCA = True
+    else:
+        pca_filename = None
+        PCA = False
+    with open(filename[:-4] + '_classes.txt', 'rb') as file:
+        classes_names = pickle.load(file)
+    act_rec = ActionRecognition(PCA=PCA, model_file=filename, PCA_file=pca_filename)
+    act_rec.load_trained(modelname, actions_names=classes_names)
+    print("Enter path to the video you want to predict")
+    predict_file = input()
+    while not os.path.exists(predict_file):
+        print(colored("No such directory. Try again", 'red'))
+    print("Predicting...")
+    act_rec.real_time_prediction(predict_file)
