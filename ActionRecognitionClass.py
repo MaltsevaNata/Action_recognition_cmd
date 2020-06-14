@@ -109,44 +109,7 @@ class ActionRecognition:
             tree.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
             self.trained = True
             tree.predict(X_test, y_test)
-        elif model_name == 'gmm':
-            gmm = GaussianMixture(n_components=3)
-
-            # Fit the GMM model for the dataset
-            # which expresses the dataset as a
-            # mixture of 3 Gaussian Distribution
-            d = pd.DataFrame(X_train)
-            gmm.fit(d)
-
-            # Assign a label to each sample
-            labels = gmm.predict(d)
-            d['labels'] = labels
-            d0 = d[d['labels'] == 0]
-            d1 = d[d['labels'] == 1]
-            d2 = d[d['labels'] == 2]
-            f, ((ax1, ax2)) = plt.subplots(nrows=1, ncols=2, sharex=True, sharey=True)
-
-            '''import math
-            distances = {}
-            center1 = []
-            center2 = []
-            for i in range(len(d0)):
-                for p1 in d[:,i]:
-                    center1 += p1**2
-                center1 = math.sqrt(center1)
-                for p2 in d0[:,i]:
-                    center2 += p2**2
-                center2 = math.sqrt(center2)
-                dist += (d0[i]-d[i])**2'''
-
-            # plot three clusters in same plot
-            ax1.scatter(d0[0], d0[1], c='r')
-            ax1.scatter(d1[0], d1[1], c='yellow')
-            ax1.scatter(d2[0], d2[1], c='g')
-            ax1.set_xlabel('Predicted')
-            ax2.scatter(d[0], d[1], c=y_train, cmap='brg')
-            ax2.set_xlabel('Original')
-            plt.show()
+      
     def predict(self, video):
         X = self.get_data_from_video(video)
         predicted = self.model.predict(X)
