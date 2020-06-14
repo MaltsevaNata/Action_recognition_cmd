@@ -16,7 +16,7 @@ parser.add_argument("--real_time_predict", "-r", help="predict action in RT usin
 args = parser.parse_args()
 
 paths_to_actions = []
-model_names = ['svm', 'kNN', 'decision_tree', 'gmm']
+model_names = ['svm', 'kNN', 'decision_tree']
 classes_names = []
 
 def get_train_data():

@@ -5,6 +5,7 @@ import json
 import sklearn.model_selection as model_selection
 import utils.SVM as SVM
 import utils.kNN as kNN
+import utils.decision_tree as decision_tree
 from sklearn.mixture import GaussianMixture
 import matplotlib.pyplot as plt
 import numpy as np
@@ -69,6 +70,10 @@ class ActionRecognition:
             knn = kNN.kNN(PCA=self.PCA)
             self.model = knn
             knn.load_trained_model(model_file=self.model_file, PCA=self.PCA, PCA_file=self.PCA_file)
+        elif model_name=='decision_tree':
+            tree = decision_tree.decision_tree(PCA=self.PCA)
+            self.model = tree
+            tree.load_trained_model(model_file=self.model_file, PCA=self.PCA, PCA_file=self.PCA_file)
 
     def train(self, paths_to_classes, action_names, model_name):
         self.action_names = action_names
@@ -98,6 +103,12 @@ class ActionRecognition:
             knn.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
             self.trained = True
             knn.predict(X_test, y_test)
+        elif model_name == 'decision_tree':
+            tree = decision_tree.decision_tree(PCA=self.PCA)
+            self.model = tree
+            tree.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
+            self.trained = True
+            tree.predict(X_test, y_test)
         elif model_name == 'gmm':
             gmm = GaussianMixture(n_components=3)
 
@@ -145,8 +156,12 @@ class ActionRecognition:
             predicted_actions[action] = predicted[key]
         print("Predicted: [action: confidence]: {}".format(predicted_actions))
 
-    def predict_by_img(self, image):
+    def predict_class_by_img(self, image):
         return self.model.predict_class(image)
+
+    def predict_class_by_video(self, video):
+        X = self.get_data_from_video(video)
+        return self.model.predict_class(X)
 
     def real_time_prediction(self, video):
         cap = cv2.VideoCapture(video)
@@ -158,7 +173,7 @@ class ActionRecognition:
                 frameHeight = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                 pose = np.array(self.process_image(frame)).astype(float)
                 pose = np.reshape(pose,(1,50))
-                predicted = self.predict_by_img(pose)[0]
+                predicted = self.predict_class_by_img(pose)[0]
                 print(predicted)
                 action = self.action_names[predicted]
                 print(action)

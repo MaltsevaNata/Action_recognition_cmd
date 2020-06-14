@@ -48,11 +48,16 @@ class Model:
         print("FINISHED training. Check on train data: accuracy score : ")
         print(accuracy_score(Y, y_predict))'''
 
+
+
     def predict(self, X, Y=None):
         if self.PCA:
             X = np.dot(X, self.PCA_matrix)
         y_predict = self.model.predict(X)
+        #print(y_predict)
         #print("Predicted: {}".format(y_predict))
+        #Y = [ 2 for i in range(y_predict.shape[0]) ]
+        #print(Y)
         if Y is not None:
             print("Comparing results to expected. Accuracy:")
             print(accuracy_score(Y, y_predict))
@@ -60,9 +65,9 @@ class Model:
             print("Precision: {}".format(precision_score(Y, y_predict, average='weighted')))
             cf_matrix = confusion_matrix(Y, y_predict)
             print(cf_matrix)
-            #ax = sns.heatmap(cf_matrix, annot=True, cmap="Blues", cbar_kws={'label': 'Scale'}, fmt='g')
-            #ax.set(ylabel="True Label", xlabel="Predicted Label")
-            #plt.show()
+            ax = sns.heatmap(cf_matrix, annot=True, cmap="Blues", cbar_kws={'label': 'Scale'}, fmt='g')
+            ax.set(ylabel="True Label", xlabel="Predicted Label")
+            plt.show()
         counts = np.bincount(y_predict)
         predicted = {}
         classes_num = len(np.unique(y_predict))
