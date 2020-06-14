@@ -6,7 +6,7 @@
   --train, -t    start training model on new data, PCA available\
   --predict, -p  predict action on video using trained model, PCA available\
   --real_time_predict, -r predict action in RT using trained model\
-  Optional parameter PCA serves for decreasing number of training parameters in the model.\
+  Optional parameter PCA serves for decreasing number of training parameters in the model.
 
 ## Installation
    **1. Install OpenPose**  https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md \
