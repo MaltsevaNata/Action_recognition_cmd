@@ -122,7 +122,7 @@ class ActionRecognition:
                     #X = *X, *data
                     frames = *frames, *data
                     #offset = random.randint(0, 10)
-                    offset = 5
+                    offset = 10
                     data = np.array(data)
                     for frame_index in range(len(data)):
                         descriptor = [data[frame_index]]
@@ -185,7 +185,7 @@ class ActionRecognition:
         X = []
         data = self.get_data_from_video(video)
         # offset = random.randint(0, 10)
-        offset = 5
+        offset = 10
         data = np.array(data)
         for frame_index in range(len(data)):
             descriptor = [data[frame_index]]

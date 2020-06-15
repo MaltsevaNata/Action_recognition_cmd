@@ -5,8 +5,8 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score
 
-modelname = 'svm'
-filename = '/home/natalia/PycharmProjects/action_recognition/models/svm_old.sav'
+modelname = 'decision_tree'
+filename = '/home/natalia/PycharmProjects/action_recognition/models/tree_new_10.sav'
 with open(filename[:-4] + '_classes.txt', 'rb') as file:
     classes_names = pickle.load(file)
 act_rec = ActionRecognition(PCA=False, model_file=filename, PCA_file=None)
@@ -17,7 +17,7 @@ y_predict = []
 Y = []
 cl = 0
 for predict_file in predicted_files:
-    y = act_rec.predict_class_by_video(predict_file)
+    y = act_rec.predict_class_by_video_descriptor(predict_file)
     y_predict=*y_predict, *y
     Y = *Y, *[cl for i in range(y.shape[0])]
     cl+=1
