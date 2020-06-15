@@ -5,13 +5,13 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score
 
-modelname = 'decision_tree'
-filename = '/home/natalia/PycharmProjects/action_recognition/models/full_tree.sav'
+modelname = 'svm'
+filename = '/home/natalia/PycharmProjects/action_recognition/models/svm_old.sav'
 with open(filename[:-4] + '_classes.txt', 'rb') as file:
     classes_names = pickle.load(file)
 act_rec = ActionRecognition(PCA=False, model_file=filename, PCA_file=None)
 act_rec.load_trained(modelname, actions_names=classes_names)
-predicted_files = ['/home/natalia/Рабочий стол/all_train_data/Move_scaner5.mp4','/home/natalia/Рабочий стол/all_train_data/Tune_angle3.mp4',
+predicted_files = ['/home/natalia/Рабочий стол/all_train_data/Move_scaner5.mp4','/home/natalia/Рабочий стол/all_train_data/Tune_angle2.mp4',
                    '/home/natalia/Рабочий стол/all_train_data/Tune_height2.mp4']
 y_predict = []
 Y = []

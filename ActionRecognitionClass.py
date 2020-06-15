@@ -6,12 +6,11 @@ import sklearn.model_selection as model_selection
 import utils.SVM as SVM
 import utils.kNN as kNN
 import utils.decision_tree as decision_tree
-from sklearn.mixture import GaussianMixture
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 import cv2
-import pandas as pd
+import random
 from datetime import datetime
 
 class ActionRecognition:
@@ -52,7 +51,6 @@ class ActionRecognition:
         data = []
         if not video.endswith('.mp4'):
             return
-        poses = []
         images = get_images(video)
         for image in images:
             data.append([])
@@ -86,7 +84,6 @@ class ActionRecognition:
                     data = self.get_data_from_video(paths_to_classes[action_num] + video)
                     X = *X, *data
                     Y = *Y, *([action_num] * len(data))
-
         X = np.array(X).astype(float)
         Y = np.array(Y).astype(int)
         X_train, X_test, y_train, y_test = model_selection.train_test_split(X, Y, train_size=0.8, test_size=0.2,
@@ -109,7 +106,65 @@ class ActionRecognition:
             tree.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
             self.trained = True
             tree.predict(X_test, y_test)
-      
+
+    def train_with_descriptor(self, paths_to_classes, action_names, model_name):
+        self.action_names = action_names
+        X = []
+        Y = []
+        frames = []
+
+        actions_num = len(paths_to_classes)
+        for action_num in range(actions_num):
+            for roots, dirs, files in os.walk(paths_to_classes[action_num]):
+                for video in files:
+                    data = self.get_data_from_video(paths_to_classes[action_num] + video)
+
+                    #X = *X, *data
+                    frames = *frames, *data
+                    #offset = random.randint(0, 10)
+                    offset = 5
+                    data = np.array(data)
+                    for frame_index in range(len(data)):
+                        descriptor = [data[frame_index]]
+                        if frame_index < offset:
+                            descriptor.append(data[frame_index])
+                        else:
+                            dif = data[frame_index] - np.array(data[frame_index - offset + 1])
+                            norm = np.linalg.norm(dif)
+                            descriptor.append(dif/norm)
+                        if frame_index == 1:
+                            descriptor.append(data[frame_index])
+                        else:
+                            descriptor.append(data[frame_index] - data[frame_index - 1])
+                        X.append(descriptor)
+                    Y = *Y, *([action_num] * len(data))
+
+        X = np.array(X).astype(float)
+        nsamples, nx, ny = X.shape
+        X = X.reshape((nsamples, nx * ny))
+        Y = np.array(Y).astype(int)
+        X_train, X_test, y_train, y_test = model_selection.train_test_split(X, Y, train_size=0.8, test_size=0.2,
+                                                                            random_state=101)
+        if model_name == 'svm':
+            svm = SVM.SVM(PCA=self.PCA)
+            self.model = svm
+            svm.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
+            self.trained = True
+            svm.predict(X_test, y_test)
+        elif model_name == 'kNN':
+            knn = kNN.kNN(PCA=self.PCA)
+            self.model = knn
+            knn.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
+            self.trained = True
+            knn.predict(X_test, y_test)
+        elif model_name == 'decision_tree':
+            tree = decision_tree.decision_tree(PCA=self.PCA)
+            self.model = tree
+            tree.train(X_train, y_train, self.model_file, PCA_file=self.PCA_file)
+            self.trained = True
+            tree.predict(X_test, y_test)
+
+
     def predict(self, video):
         X = self.get_data_from_video(video)
         predicted = self.model.predict(X)
@@ -124,6 +179,30 @@ class ActionRecognition:
 
     def predict_class_by_video(self, video):
         X = self.get_data_from_video(video)
+        return self.model.predict_class(X)
+
+    def predict_class_by_video_descriptor(self, video):
+        X = []
+        data = self.get_data_from_video(video)
+        # offset = random.randint(0, 10)
+        offset = 5
+        data = np.array(data)
+        for frame_index in range(len(data)):
+            descriptor = [data[frame_index]]
+            if frame_index < offset:
+                descriptor.append(data[frame_index])
+            else:
+                dif = data[frame_index] - np.array(data[frame_index - offset + 1])
+                norm = np.linalg.norm(dif)
+                descriptor.append(dif / norm)
+            if frame_index == 1:
+                descriptor.append(data[frame_index])
+            else:
+                descriptor.append(data[frame_index] - data[frame_index - 1])
+            X.append(descriptor)
+        X = np.array(X).astype(float)
+        nsamples, nx, ny = X.shape
+        X = X.reshape((nsamples, nx * ny))
         return self.model.predict_class(X)
 
     def real_time_prediction(self, video):

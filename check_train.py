@@ -7,8 +7,8 @@ print("To train a model on your videos you should place videos with common actio
 paths_to_actions = ['/home/natalia/Рабочий стол/all_train_data/Move_scaner/', '/home/natalia/Рабочий стол/all_train_data/Tune_angle/',
                     '/home/natalia/Рабочий стол/all_train_data/Tune_height/']
 
-filename = 'models/full_tree' + '.sav'
-modelname = 'decision_tree'
+filename = 'models/svm_old' + '.sav'
+modelname = 'svm'
 PCA = False
 pca_filename = None
 for num in range(len(paths_to_actions)):
